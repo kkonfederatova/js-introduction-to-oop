@@ -1,6 +1,27 @@
-export const getMutualFriends = (user1, user2) => {
-    const friends1 = user1.getFriends();
-    const friends2 = user2.getFriends();
-    const friends2Ids = friends2.map(({ id }) => id);
-    return friends1.filter(({ id }) => friends2Ids.includes(id));
-};
+const make = (numer, denom) => ({
+    numer,
+    denom,
+    setNumer(newNumer) {
+      this.numer = newNumer;
+    },
+    setDenom(newDenom) {
+      this.denom = newDenom;
+    },
+    getNumer() {
+      return this.numer;
+    },
+    getDenom() {
+      return this.denom;
+    },
+    toString() {
+      return `${this.getNumer()}/${this.getDenom()}`;
+    },
+    add(rational) {
+      const newNumer = this.getNumer() * rational.getDenom() + rational.getNumer() * this.getDenom();
+      const newDenom = this.getDenom() * rational.getDenom();
+      return make(newNumer, newDenom);
+    },
+  });
+  
+  export default make;
+  
